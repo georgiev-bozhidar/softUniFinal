@@ -59,7 +59,7 @@ public class ViewController {
         return "order-history";
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{id}/view")
     public String viewUser(@PathVariable Long id){
         return "user-profile";
     }
@@ -69,12 +69,12 @@ public class ViewController {
         return "user-settings";
     }
 
-    @GetMapping("/chain/{id}")
+    @GetMapping("/chai/{id}/view")
     public String viewChain(@PathVariable Long id){
         return "chain";
     }
 
-    @GetMapping("/location/{id}")
+    @GetMapping("/location/{id}/view")
     public String viewLocation(@PathVariable Long id){
         return "location";
     }
