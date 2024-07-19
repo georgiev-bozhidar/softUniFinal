@@ -13,7 +13,7 @@ public class Chain extends BaseEntity {
     @ManyToOne
     private User owner;
 
-    @OneToMany(mappedBy = "ownedBy")
+    @OneToMany(mappedBy = "ownedBy", fetch = FetchType.EAGER)
     private Set<Location> locations;
 
     public String getName() {

@@ -20,7 +20,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private LocalDate birthday;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Chain> ownedChains;
 
     @ManyToMany
