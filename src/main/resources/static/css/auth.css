@@ -1,13 +1,6 @@
 @import url("util/style.css");
 
-html {
-    justify-items: center;
-}
-
 body {
-    background-color: lightgreen;
-    margin: 0 auto;
-    max-width: min(80ch, 90vw);
     align-content: center;
 }
 
@@ -59,3 +52,5 @@ a {
     flex-direction: row;
     gap: 1em;
 }
+
+

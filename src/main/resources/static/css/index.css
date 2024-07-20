@@ -6,17 +6,6 @@
     }
 }
 
-html {
-    justify-items: center;
-    margin: auto;
-}
-
-body {
-    background-color: lightgreen;
-    margin: 0 auto;
-    max-width: min(80ch, 90vw);
-}
-
 a {
     text-decoration: none;
 }
