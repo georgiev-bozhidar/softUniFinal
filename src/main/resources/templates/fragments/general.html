@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://thymeleaf.org/" lang="en">
+<html xmlns:th="http://thymeleaf.org/"  xmlns:sec="http://thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,19 +10,25 @@
 <body>
     <div th:fragment="header">
         <header>
-            <ul>
+            <a th:href="@{/}" id="name">DeliverE</a>
+            <ul class="nav" id="nav">
                 <li><a th:href="@{/home}">Home</a></li>
                 <li><a th:href="@{/browse}">Browse</a></li>
+            </ul>
+            <ul class="nav" id="nav-not-logged" sec:authorize="!isAuthenticated()">
                 <li><a th:href="@{/login}">Login</a></li>
                 <li><a th:href="@{/register}">Register</a></li>
+            </ul>
+            <ul class="nav" id="nav-logged" sec:authorize="isAuthenticated()">
                 <li><a th:href="@{/user/{id}}">Account</a></li>
-                <li><a th:href="@{/logout}">Logout</a></li>
+                <li>
+                    <form th:action="@{/logout}" th:method="post"><button type="submit">Logout</button></form></li>
             </ul>
         </header>
     </div>
 
     <div th:fragment="footer">
-        <footer>footer</footer>
+        <footer>This is not a real website. This is a finals project for SoftUni.</footer>
     </div>
 </body>
 </html>

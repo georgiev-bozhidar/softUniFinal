@@ -1,0 +1,40 @@
+header {
+  padding-top:1em;
+  display:flex;
+  justify-content: space-between;
+}
+
+header ul {
+  display: flex;
+  flex-direction: row;
+  gap: 4em;
+  list-style: none;
+  justify-content: space-between;
+}
+
+header ul li {
+  align-content:center;
+}
+
+ul button {
+  border: none;
+  background: none;
+}
+
+ul button:hover {
+  cursor: pointer;
+}
+
+footer {
+}
+
+header,
+footer {
+  font-size: 1.1em;
+  text-align: center;
+}
+
+#name {
+  font-size: 1.5em;
+  font-weight:600;
+}
