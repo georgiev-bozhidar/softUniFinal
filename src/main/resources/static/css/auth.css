@@ -29,7 +29,13 @@ input {
     padding: 1em;
 }
 
-button, a {
+#buttons {
+    display:flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+#buttons * {
     text-decoration: none;
     flex-grow: 1;
     text-align:center;
@@ -39,18 +45,11 @@ button, a {
     border-radius: 1000em;
 }
 
-button {
-    background-color: #fbff69;
-}
-
-a {
+#buttons a {
     background-color: #aaaaaa;
 }
 
-#buttons {
-    display:flex;
-    flex-direction: row;
-    gap: 1em;
+#buttons button {
+    background-color: #fbff69;
 }
-
 

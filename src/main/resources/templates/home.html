@@ -10,7 +10,8 @@
 </head>
 <body>
     <div th:replace="~{fragments/general.html :: header}"></div>
-    <p>home</p>
+    <a th:href="@{/chain/create}">Create chain</a>
+    <a th:href="@{/location/create}">Create location</a>
     <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

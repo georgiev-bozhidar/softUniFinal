@@ -10,7 +10,7 @@ a {
     text-decoration: none;
 }
 
-#nav {
+#nav, #nav-not-logged, #nav-logged {
     display:none;
 }
 
