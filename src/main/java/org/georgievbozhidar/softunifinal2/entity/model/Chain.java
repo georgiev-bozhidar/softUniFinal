@@ -39,4 +39,12 @@ public class Chain extends BaseEntity {
     public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
+
+    public void addLocation(Location location) {
+        this.getLocations().add(location);
+    }
+
+    public void removeLocation(Location location) {
+        this.getLocations().remove(location);
+    }
 }

@@ -1,10 +1,11 @@
 package org.georgievbozhidar.softunifinal2.service.impl;
 
-import org.georgievbozhidar.softunifinal2.entity.model.Chain;
-import org.georgievbozhidar.softunifinal2.entity.model.User;
-import org.georgievbozhidar.softunifinal2.repository.ChainRepository;
-import org.georgievbozhidar.softunifinal2.repository.UserRepository;
-import org.georgievbozhidar.softunifinal2.service.UserService;
+import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.CreateLocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.UserRegisterDTO;
+import org.georgievbozhidar.softunifinal2.entity.model.*;
+import org.georgievbozhidar.softunifinal2.repository.*;
+import org.georgievbozhidar.softunifinal2.service.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,10 +14,24 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ChainRepository chainRepository;
+    private final LocationRepository locationRepository;
+    private final FoodRepository foodRepository;
+    private final DrinkRepository drinkRepository;
+    private final ChainService chainService;
+    private final LocationService locationService;
+    private final FoodService foodService;
+    private final DrinkService drinkService;
 
-    public UserServiceImpl(UserRepository userRepository, ChainRepository chainRepository) {
+    public UserServiceImpl(UserRepository userRepository, ChainRepository chainRepository, LocationRepository locationRepository, FoodRepository foodRepository, DrinkRepository drinkRepository, ChainService chainService, LocationService locationService, FoodService foodService, DrinkService drinkService) {
         this.userRepository = userRepository;
         this.chainRepository = chainRepository;
+        this.locationRepository = locationRepository;
+        this.foodRepository = foodRepository;
+        this.drinkRepository = drinkRepository;
+        this.chainService = chainService;
+        this.locationService = locationService;
+        this.foodService = foodService;
+        this.drinkService = drinkService;
     }
 
     @Override
@@ -29,10 +44,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    @Override
-    public void createChain(Chain chain) {
-        chainRepository.save(chain);
-    }
 
     @Override
     public void order() {
@@ -43,4 +54,5 @@ public class UserServiceImpl implements UserService {
     public void checkout() {
 
     }
+
 }

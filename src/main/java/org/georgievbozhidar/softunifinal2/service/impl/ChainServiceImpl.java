@@ -2,8 +2,10 @@ package org.georgievbozhidar.softunifinal2.service.impl;
 
 import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
 import org.georgievbozhidar.softunifinal2.entity.model.Chain;
+import org.georgievbozhidar.softunifinal2.entity.model.Location;
 import org.georgievbozhidar.softunifinal2.repository.ChainRepository;
 import org.georgievbozhidar.softunifinal2.service.ChainService;
+import org.georgievbozhidar.softunifinal2.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.Set;
 public class ChainServiceImpl implements ChainService {
     private final ChainRepository chainRepository;
     private final ModelMapper modelMapper;
+    private final UserService userService;
 
-    public ChainServiceImpl(ChainRepository chainRepository, ModelMapper modelMapper) {
+    public ChainServiceImpl(ChainRepository chainRepository, ModelMapper modelMapper, UserService userService) {
         this.chainRepository = chainRepository;
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
 
     public Optional<Chain> getById(Long id){
@@ -29,14 +33,21 @@ public class ChainServiceImpl implements ChainService {
         return chainRepository.findByName(name);
     }
 
-    public void createChain(CreateChainDTO createChainDTO){
+    public Chain createChain(CreateChainDTO createChainDTO, String owner){
         Chain chain = modelMapper.map(createChainDTO, Chain.class);
+        chain.setOwner(userService.findByUsername(owner));
         chainRepository.save(chain);
+        return chain;
     }
 
     @Override
     public void deleteChainById(Long id) {
-        Chain chain = chainRepository.findById(id).get();
+        Optional<Chain> optChain = chainRepository.findById(id);
+        if (optChain.isEmpty()){
+            return;
+        }
+
+        Chain chain = optChain.get();
         chainRepository.delete(chain);
     }
 
@@ -48,5 +59,10 @@ public class ChainServiceImpl implements ChainService {
     @Override
     public Optional<Chain> getByName(String name) {
         return chainRepository.findByName(name);
+    }
+
+    @Override
+    public void addLocationToChain(Location location, Chain chain) {
+        chain.addLocation(location);
     }
 }

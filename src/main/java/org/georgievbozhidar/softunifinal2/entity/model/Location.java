@@ -54,4 +54,21 @@ public class Location extends BaseEntity {
     public void setDrinks(Set<Drink> drinks) {
         this.drinks = drinks;
     }
+
+    public void addFood(Food food){
+        this.getFoods().add(food);
+    }
+
+    public void addDrink(Drink drink){
+        this.getDrinks().add(drink);
+    }
+
+    public void removeFood(Food food){
+        this.getFoods().remove(food);
+    }
+
+    public void removeDrink(Drink drink){
+        this.getDrinks().remove(drink);
+    }
+
 }

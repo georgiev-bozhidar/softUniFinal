@@ -6,6 +6,7 @@ import org.georgievbozhidar.softunifinal2.entity.model.Chain;
 import org.georgievbozhidar.softunifinal2.service.ChainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -37,9 +38,9 @@ public class ChainController {
     }
 
     @PostMapping
-    public ResponseEntity<Chain> createChain(@RequestBody @Valid CreateChainDTO createChainDTO){
-        chainService.createChain(createChainDTO);
-        return new ResponseEntity<>(chainService.getByName(createChainDTO.getName()).get(), HttpStatus.OK);
+    public ResponseEntity<Chain> createChain(@RequestBody @Valid CreateChainDTO createChainDTO, Authentication authentication){
+        Chain chain = chainService.createChain(createChainDTO, authentication.getName());
+        return new ResponseEntity<>(chain, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
