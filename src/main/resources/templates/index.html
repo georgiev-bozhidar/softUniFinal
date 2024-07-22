@@ -11,9 +11,9 @@
 <body>
     <div th:replace="~{fragments/general.html :: header}"></div>
     <main>
-        <h2 id="hero-title">Fresh food, straight to you.</h2>
-        <a id="cta" href="/register">
-            Sign in
+        <h2 id="hero-title" th:text="#{hero_title}">Fresh food, straight to you.</h2>
+        <a id="cta" href="/register" th:text="#{sign_up}">
+            Sign up
         </a>
     </main>
     <div th:replace="~{fragments/general.html :: footer}"></div>

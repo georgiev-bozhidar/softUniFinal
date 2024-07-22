@@ -12,20 +12,22 @@
 <body>
 <form th:method="POST" th:action="@{/login}">
     <div>
-        <label for="username">Username</label>
+        <label for="username" th:text="#{username}">Username</label>
         <input type="text" id="username" name="username"/>
     </div>
 
     <div>
-        <label for="password">Password</label>
+        <label for="password" th:text="#{password}">Password</label>
         <input type="password" id="password" name="password"/>
     </div>
 
     <div id="buttons">
-        <a th:href="@{/}">Back</a>
+        <a th:href="@{/}" th:text="#{nav_back}">Back</a>
 
-        <button type="submit">Login</button>
+        <button type="submit" th:text="#{login}">Login</button>
     </div>
+
+    <div><p th:text="#{no_acc}">Don't have an account yet?</p> <p><a class="normal_link" th:href="@{/register}" th:text="#{sign_up}">Sign up.</a></p></div>
 </form>
 </body>
 </html>

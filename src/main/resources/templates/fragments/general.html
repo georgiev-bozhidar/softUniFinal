@@ -12,23 +12,34 @@
         <header>
             <a th:href="@{/}" id="name">DeliverE</a>
             <ul class="nav" id="nav">
-                <li><a th:href="@{/home}">Home</a></li>
-                <li><a th:href="@{/browse}">Browse</a></li>
+                <li><a th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
+                <li><a th:href="@{/browse}" th:text="#{nav_bar_search}">Search</a></li>
             </ul>
             <ul class="nav" id="nav-not-logged" sec:authorize="!isAuthenticated()">
-                <li><a th:href="@{/login}">Login</a></li>
-                <li><a th:href="@{/register}">Register</a></li>
+                <li><a th:href="@{/login}" th:text="#{login}">Login</a></li>
+                <li><a th:href="@{/register}" th:text="#{register}">Register</a></li>
             </ul>
             <ul class="nav" id="nav-logged" sec:authorize="isAuthenticated()">
-                <li><a th:href="@{/user/{id}}">Account</a></li>
+                <li><a th:href="@{/user/{id}}" th:text="#{account}">Account</a></li>
                 <li>
-                    <form th:action="@{/logout}" th:method="post"><button type="submit">Logout</button></form></li>
+                    <form th:action="@{/logout}" th:method="post"><button type="submit" th:text="#{logout}">Logout</button></form></li>
+            </ul>
+            <ul class="nav" id="nav-locale">
+                <li>
+                    <form th:method="GET">
+                        <label for="lang" th:text="#{language}">Language</label>
+                        <select name="lang" id="lang" onchange="this.form.submit()">
+                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                        </select>
+                    </form>
+                </li>
             </ul>
         </header>
     </div>
 
     <div th:fragment="footer">
-        <footer>This is not a real website. This is a finals project for SoftUni.</footer>
+        <footer th:text="#{footer}">This is not a real website. This is a finals project for SoftUni.</footer>
     </div>
 </body>
 </html>

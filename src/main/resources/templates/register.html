@@ -11,30 +11,32 @@
 <body>
 <form th:method="POST" th:action="@{/register}">
     <div>
-        <label for="username">Username</label>
+        <label for="username" th:text="#{username}">Username</label>
         <input type="text" id="username" name="username"/>
     </div>
 
     <div>
-        <label for="password">Password</label>
+        <label for="password" th:text="#{password}">Password</label>
         <input type="password" id="password" name="password"/>
     </div>
 
     <div>
-        <label for="email">Email</label>
+        <label for="email" th:text="#{email}">Email</label>
         <input type="email" id="email" name="email"/>
     </div>
 
     <div>
-        <label for="birthday">Date of Birth</label>
+        <label for="birthday" th:text="#{birthday}">Date of Birth</label>
         <input type="date" id="birthday" name="birthday"/>
     </div>
 
     <div id="buttons">
-        <a th:href="@{/}">Back</a>
+        <a th:href="@{/}" th:text="#{nav_back}">Back</a>
 
-        <button type="submit">Register</button>
+        <button type="submit" th:text="#{register}">Register</button>
     </div>
+
+    <div><p th:text="#{yes_acc}">Already have an account?</p> <p><a class="normal_link" th:href="@{/login}" th:text="#{sign_in}">Sign in.</a></p></div>
 </form>
 </body>
 </html>
