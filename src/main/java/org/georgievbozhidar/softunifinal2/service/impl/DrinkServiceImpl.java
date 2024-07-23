@@ -20,9 +20,10 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void createDrink(CreateDrinkDTO createDrinkDTO) {
+    public Drink createDrink(CreateDrinkDTO createDrinkDTO) {
         Drink drink = modelMapper.map(createDrinkDTO, Drink.class);
         drinkRepository.save(drink);
+        return drink;
     }
 
     @Override
@@ -33,5 +34,12 @@ public class DrinkServiceImpl implements DrinkService {
         }
 
         drinkRepository.delete(optDrink.get());
+    }
+
+    @Override
+    public Drink getDrinkById(Long id) {
+       Optional<Drink> optDrink = drinkRepository.findById(id);
+        return optDrink.orElse(null);
+
     }
 }

@@ -20,9 +20,10 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void createFood(CreateFoodDTO createFoodDTO) {
+    public Food createFood(CreateFoodDTO createFoodDTO) {
         Food food = modelMapper.map(createFoodDTO, Food.class);
         foodRepository.save(food);
+        return food;
     }
 
     @Override
@@ -33,5 +34,11 @@ public class FoodServiceImpl implements FoodService {
         }
 
         foodRepository.delete(optFood.get());
+    }
+
+    @Override
+    public Food getFoodById(Long id) {
+        return foodRepository.findById(id).orElse(null);
+
     }
 }
