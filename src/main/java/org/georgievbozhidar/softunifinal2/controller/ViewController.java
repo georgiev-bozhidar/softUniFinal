@@ -1,11 +1,23 @@
 package org.georgievbozhidar.softunifinal2.controller;
 
+import jakarta.validation.Valid;
+import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.CreateLocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ViewController {
+
+
     @GetMapping("/")
     public String viewIndex(){
         return "index";
@@ -26,13 +38,23 @@ public class ViewController {
         return "register";
     }
 
+    @ModelAttribute("chainCreationData")
+    public CreateChainDTO createChainCreationData(){
+        return new CreateChainDTO();
+    }
+
+    @ModelAttribute("locationCreationData")
+    public CreateLocationDTO createLocationCreationData(){
+        return new CreateLocationDTO();
+    }
+
     @GetMapping("/chain/create")
-    public String viewCreateChain(){
+    public String viewCreateChain(@Valid CreateChainDTO createChainDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         return "create-chain";
     }
 
     @GetMapping("/location/create")
-    public String viewCreateLocation(){
+    public String viewCreateLocation(@Valid CreateLocationDTO createLocationDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         return "create-location";
     }
 
@@ -57,8 +79,16 @@ public class ViewController {
     }
 
     @GetMapping("/user/{id}/view")
-    public String viewUser(@PathVariable Long id){
-        return "user-profile";
+    public ModelAndView viewUser(@PathVariable Long id, RestClient restClient){
+        ModelAndView modelAndView = new ModelAndView("user-profile");
+        modelAndView.addObject("user", restClient.get()
+                .uri("http://localhost:8080/user/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(UserDTO.class));
+
+        System.out.println(restClient.get().uri("/user/{id}", id).retrieve().body(String.class));
+        return modelAndView;
     }
 
     @GetMapping("/account/settings")
@@ -67,12 +97,18 @@ public class ViewController {
     }
 
     @GetMapping("/chain/{id}/view")
-    public String viewChain(@PathVariable Long id){
-        return "chain";
+    public ModelAndView viewChain(@PathVariable Long id, RestClient restClient){
+        ModelAndView modelAndView = new ModelAndView("chain");
+        modelAndView.addObject("chain", restClient.get().uri("http://localhost:8080/chain/{id}", id));
+
+        return modelAndView;
     }
 
     @GetMapping("/location/{id}/view")
-    public String viewLocation(@PathVariable Long id){
-        return "location";
+    public ModelAndView viewLocation(@PathVariable Long id, RestClient restClient){
+        ModelAndView modelAndView = new ModelAndView("location");
+        modelAndView.addObject("location", restClient.get().uri("http://localhost:8080/location/{id}", id));
+
+        return modelAndView;
     }
 }
