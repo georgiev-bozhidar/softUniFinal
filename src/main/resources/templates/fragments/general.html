@@ -22,7 +22,7 @@
             <ul class="nav" id="nav-logged" sec:authorize="isAuthenticated()">
                 <li><a th:href="@{/user/{id}}" th:text="#{account}">Account</a></li>
                 <li>
-                    <form th:action="@{/logout}" th:method="post"><button type="submit" th:text="#{logout}">Logout</button></form></li>
+                    <form id="locale-form" th:action="@{/logout}" th:method="post"><button type="submit" th:text="#{logout}">Logout</button></form></li>
             </ul>
             <ul class="nav" id="nav-locale">
                 <li>

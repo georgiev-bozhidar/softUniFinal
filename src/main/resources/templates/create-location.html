@@ -5,12 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-    <link rel="stylesheet" href="/css/util/style.css">
+    <title>DeliverE</title>
+    <link rel="stylesheet" href="/css/creation.css">
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
+<form id="creation_form" th:method="POST" th:action="@{/chain}" th:object="${locationCreationData}">
+    <div>
+        <label for="address" th:text="#{address}">Address</label>
+        <input type="text" id="address" name="address" th:field="*{address}"/>
+    </div>
 
+<!--    <div>-->
+<!--        <label for="parent_chain" th:text="#{parent_chain}">Parent Chain</label>-->
+<!--        <select id="parent_chain" name="parent_chain" th:field="*{ownedBy}">-->
+<!--            <option th:each="${#}"></option>-->
+<!--        </select>-->
+<!--    </div>-->
+
+    <div>
+        <label for="location_type" th:text="#{location_type}">Location Type</label>
+        <select id="location_type" name="location_type" th:field="*{locationType}">
+            <option value=""></option>
+            <option value="FAST_FOOD">Fast Food</option>
+            <option value="RESTAURANT">Restaurant</option>
+            <option value="CAFE">Café</option>
+            <option value="NON_STOP">Non-Stop</option>
+            <option value="SUPERMARKET">Supermarket</option>
+        </select>
+    </div>
+
+    <div id="buttons">
+        <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
+
+        <button type="submit" th:text="#{create_location}">Create Location</button>
+    </div>
+</form>
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

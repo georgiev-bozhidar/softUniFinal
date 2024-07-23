@@ -9,11 +9,7 @@ header ul {
   flex-direction: row;
   gap: 4em;
   list-style: none;
-  justify-content: space-between;
-}
-
-header ul li {
-  align-content:center;
+  justify-content: space-evenly;
 }
 
 ul button {
@@ -37,4 +33,9 @@ footer {
 #name {
   font-size: 1.5em;
   font-weight:600;
+}
+
+#locale-form {
+  display:flex;
+  flex-direction:column;
 }

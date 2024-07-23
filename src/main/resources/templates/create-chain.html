@@ -5,11 +5,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/util/style.css">
-    <title></title>
+    <title>DeliverE</title>
+    <link rel="stylesheet" href="/css/creation.css">
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
+<form id="creation-form" th:method="POST" th:action="@{/chain}" th:object="${chainCreationData}">
+    <div>
+        <label for="name" th:text="#{name}">Name</label>
+        <input type="text" id="name" name="name" th:field="*{name}"/>
+    </div>
+
+    <div id="buttons">
+        <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
+
+        <button type="submit" th:text="#{create_chain}">Create Chain</button>
+    </div>
+</form>
 
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
