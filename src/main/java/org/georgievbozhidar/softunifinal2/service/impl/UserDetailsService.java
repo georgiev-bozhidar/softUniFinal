@@ -2,9 +2,6 @@ package org.georgievbozhidar.softunifinal2.service.impl;
 
 import org.georgievbozhidar.softunifinal2.entity.model.User;
 import org.georgievbozhidar.softunifinal2.repository.UserRepository;
-import org.modelmapper.Converters;
-import org.modelmapper.ModelMapper;
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -24,12 +21,10 @@ public class UserDetailsService implements org.springframework.security.core.use
                 .orElseThrow(() -> new UsernameNotFoundException("User with that username not found."));
     }
 
-    public static UserDetails map(User user){
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
-                .password(user.getPassword())
-                .authorities(List.of())
-                .disabled(false)
-                .build();
+    public static org.georgievbozhidar.softunifinal2.entity.model.UserDetails map(User user){
+        return new org.georgievbozhidar.softunifinal2.entity.model.UserDetails(
+                user.getUsername(),
+                user.getPassword(),
+                List.of()); // TODO
     }
 }

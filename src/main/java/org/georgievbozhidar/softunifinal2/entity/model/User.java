@@ -3,6 +3,7 @@ package org.georgievbozhidar.softunifinal2.entity.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,15 @@ public class User extends BaseEntity {
 
     @ManyToMany
     private Set<Chain> favouriteChains;
+
+    @ManyToMany
+    @JoinTable(
+            name="users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public String getUsername() {
         return username;
@@ -72,5 +82,13 @@ public class User extends BaseEntity {
 
     public void setFavouriteChains(Set<Chain> favouriteChains) {
         this.favouriteChains = favouriteChains;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }
