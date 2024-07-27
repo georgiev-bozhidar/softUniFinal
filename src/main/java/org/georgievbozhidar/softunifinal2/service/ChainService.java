@@ -1,22 +1,26 @@
 package org.georgievbozhidar.softunifinal2.service;
 
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.ChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
 import org.georgievbozhidar.softunifinal2.entity.model.Chain;
 import org.georgievbozhidar.softunifinal2.entity.model.Location;
-import org.georgievbozhidar.softunifinal2.entity.model.User;
 
-import java.util.Optional;
 import java.util.Set;
 
 public interface ChainService {
-    public Optional<Chain> findByName(String name);
-    public Optional<Chain> getById(Long id);
-    public Chain createChain(CreateChainDTO createChainDTO, String owner);
-    public void addLocationToChain(Location location, Chain chain);
+    public Chain findByName(String name);
+    public Chain findByOwner(UserDTO owner);
+    public ChainDTO getById(Long id);
+    public ChainDTO getByName(String name);
+    public ChainDTO getByOwner(UserDTO owner);
+    public Set<ChainDTO> getAllChains();
 
-    void deleteChainById(Long id);
+    public ChainDTO createChain(CreateChainDTO createChainDTO);
 
-    Set<Chain> getAllChains();
+//    public ChainDTO updateChain(UpdateChainDTO updateChainDTO);
 
-    Optional<Chain> getByName(String name);
+    public void deleteChain(Long id);
+
+    public ChainDTO addLocation(Location location, Chain chain);
 }
