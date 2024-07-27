@@ -1,21 +1,23 @@
 package org.georgievbozhidar.softunifinal2.entity.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.georgievbozhidar.softunifinal2.entity.enums.DrinkType;
 
-public class CreateDrinkDTO {
+public class DrinkDTO {
+    @NotBlank
+    private Long id;
+
     @NotBlank
     private String name;
-    @NotNull
+
     private DrinkType drinkType;
 
-    public @NotNull DrinkType getDrinkType() {
-        return drinkType;
+    public @NotBlank Long getId() {
+        return id;
     }
 
-    public void setDrinkType(@NotNull DrinkType drinkType) {
-        this.drinkType = drinkType;
+    public void setId(@NotBlank Long id) {
+        this.id = id;
     }
 
     public @NotBlank String getName() {
@@ -24,5 +26,13 @@ public class CreateDrinkDTO {
 
     public void setName(@NotBlank String name) {
         this.name = name;
+    }
+
+    public DrinkType getDrinkType() {
+        return drinkType;
+    }
+
+    public void setDrinkType(DrinkType drinkType) {
+        this.drinkType = drinkType;
     }
 }
