@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClient;
 public class RestConfig {
     @Bean
     public RestClient restClient(){
-        return RestClient.create();
+//        return RestClient.create();
+        return RestClient.builder().baseUrl("http://localhost:8081/api").build();
     }
 }
