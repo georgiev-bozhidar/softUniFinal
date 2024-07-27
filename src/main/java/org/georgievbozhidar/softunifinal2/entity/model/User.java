@@ -24,10 +24,10 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Chain> ownedChains;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Chain> favouriteChains;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="users_roles",
             joinColumns = @JoinColumn(

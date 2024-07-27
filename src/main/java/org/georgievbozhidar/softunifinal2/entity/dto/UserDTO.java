@@ -1,20 +1,32 @@
 package org.georgievbozhidar.softunifinal2.entity.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import org.georgievbozhidar.softunifinal2.entity.model.Chain;
+import org.georgievbozhidar.softunifinal2.entity.model.Role;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 
 public class UserDTO {
+    @NotBlank
+    private Long id;
+
     @NotBlank
     private String username;
 
     @NotBlank
     private String email;
 
+    @PastOrPresent
+    private LocalDate birthday;
+
     private Set<Chain> ownedChains;
 
     private Set<Chain> favouriteChains;
+
+    private Collection<Role> roles;
 
     public @NotBlank String getUsername() {
         return username;
@@ -46,5 +58,29 @@ public class UserDTO {
 
     public void setFavouriteChains(Set<Chain> favouriteChains) {
         this.favouriteChains = favouriteChains;
+    }
+
+    public @NotBlank Long getId() {
+        return id;
+    }
+
+    public void setId(@NotBlank Long id) {
+        this.id = id;
+    }
+
+    public @PastOrPresent LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(@PastOrPresent LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }
