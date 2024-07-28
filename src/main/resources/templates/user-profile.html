@@ -10,7 +10,15 @@
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
-
+<div th:object="${userData}">
+    <p>Username: <span th:text="*{username}"></span></p>
+    <p>Email: <span th:text="*{email}"></span></p>
+    <p>Day of birth: <span th:text="*{birthday}"></span></p>
+    <p>Owned chains: </p>
+    <div th:each="ownedChain: ${userData.getOwnedChains()}">
+        <p>Name: <a th:href="@{/chain/{id}(id=ownedChain.getId())}" th:text="${ownedChain.getName()}"></a></p>
+    </div>
+</div>
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>
