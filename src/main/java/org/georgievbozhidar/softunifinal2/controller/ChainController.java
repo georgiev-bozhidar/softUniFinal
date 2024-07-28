@@ -1,28 +1,32 @@
 package org.georgievbozhidar.softunifinal2.controller;
 
 import jakarta.validation.Valid;
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
-import org.georgievbozhidar.softunifinal2.entity.model.Chain;
+import org.georgievbozhidar.softunifinal2.entity.dto.ChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateDrinkDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateFoodDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateLocationDTO;
 import org.georgievbozhidar.softunifinal2.service.ChainService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.georgievbozhidar.softunifinal2.service.UserService;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
 import java.util.Set;
 
-@RestController
-@RequestMapping("/chain")
+@Controller
 public class ChainController {
     private final ChainService chainService;
+    private final UserService userService;
+    private final RestClient restClient;
 
-    public ChainController(ChainService chainService) {
+    public ChainController(ChainService chainService, UserService userService, RestClient restClient) {
         this.chainService = chainService;
+        this.userService = userService;
+        this.restClient = restClient;
     }
 
     @ModelAttribute("chainCreationData")
@@ -30,14 +34,29 @@ public class ChainController {
         return new CreateChainDTO();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Chain> getChain(@PathVariable Long id) {
-        Optional<Chain> optChain = chainService.getById(id);
-        if (optChain.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @ModelAttribute("locationCreationData")
+    public CreateLocationDTO createLocationCreationData(){
+        return new CreateLocationDTO();
+    }
 
-        return new ResponseEntity<>(optChain.get(), HttpStatus.OK);
+    @ModelAttribute("foodCreationData")
+    public CreateFoodDTO createFoodCreationData(){
+        return new CreateFoodDTO();
+    }
+
+    @ModelAttribute("drinkCreationData")
+    public CreateDrinkDTO createDrinkCreationData(){
+        return new CreateDrinkDTO();
+    }
+
+    @GetMapping("/chain/{id}")
+    public ModelAndView viewChain(@PathVariable Long id) {
+        ModelAndView mnv = new ModelAndView("chain");
+
+        ChainDTO chainDTO = chainService.getById(id);
+        mnv.addObject("chainData", chainDTO);
+
+        return mnv;
     }
 
     @GetMapping("/all")
@@ -47,19 +66,15 @@ public class ChainController {
     }
 
     @PostMapping
-    public ResponseEntity<Chain> createChain(@RequestBody @Valid CreateChainDTO createChainDTO, Authentication authentication){
-        Chain chain = chainService.createChain(createChainDTO, authentication.getName());
-        return new ResponseEntity<>(chain, HttpStatus.OK);
+    public String doCreateChain(@RequestBody @Valid CreateChainDTO createChainDTO, Authentication authentication){
+//        createChainDTO.setOwner(); TODO
+        ChainDTO chainDTO = chainService.createChain(createChainDTO);
+        return String.format("redirect:/chain/%s", chainDTO.getId());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteChain(@PathVariable Long id) {
-        Optional<Chain> optChain = chainService.getById(id);
-        if (optChain.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        chainService.deleteChainById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public String doDeleteChain(@PathVariable Long id, Authentication authentication) {
+        chainService.deleteChain(id);
+        return String.format("redirect:/user/%s", userService.findByUsername(authentication.getName()));
     }
 }
