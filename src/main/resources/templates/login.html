@@ -10,10 +10,11 @@
 
 </head>
 <body>
-<form th:method="POST" th:action="@{/login}">
+<form th:method="POST" th:action="@{/login}" th:object="${loginData}">
+    <p class="error" th:if="${param.error}" th:text="#{auth_invalid}">Invalid username and password.</p>
     <div>
         <label for="username" th:text="#{username}">Username</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" th:field="*{username}"/>
     </div>
 
     <div>

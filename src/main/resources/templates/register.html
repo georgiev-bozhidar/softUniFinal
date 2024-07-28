@@ -9,25 +9,35 @@
     <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
-<form th:method="POST" th:action="@{/register}">
+<form th:method="POST" th:action="@{/register}" th:object="${registerData}">
     <div>
         <label for="username" th:text="#{username}">Username</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" th:field="*{username}"/>
+        <p class="error" th:each="error: ${#fields.errors('username')}">Errors</p>
     </div>
 
     <div>
         <label for="password" th:text="#{password}">Password</label>
         <input type="password" id="password" name="password"/>
+        <p class="error" th:each="error: ${#fields.errors('password')}">Errors</p>
+    </div>
+
+    <div>
+        <label for="confirmPassword" th:text="#{confirm_password}">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword"/>
+        <p class="error" th:each="error: ${#fields.errors('confirmPassword')}">Errors</p>
     </div>
 
     <div>
         <label for="email" th:text="#{email}">Email</label>
-        <input type="email" id="email" name="email"/>
+        <input type="email" id="email" name="email" th:field="*{email}"/>
+        <p class="error" th:each="error: ${#fields.errors('email')}">Errors</p>
     </div>
 
     <div>
         <label for="birthday" th:text="#{birthday}">Date of Birth</label>
-        <input type="date" id="birthday" name="birthday"/>
+        <input type="date" id="birthday" name="birthday" th:field="*{birthday}"/>
+        <p class="error" th:each="error: ${#fields.errors('birthday')}">Errors</p>
     </div>
 
     <div id="buttons">
