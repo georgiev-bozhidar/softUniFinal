@@ -45,51 +45,51 @@ public class UserRegisterDTO {
         this.roles = roles;
     }
 
+    public @NotBlank(message = "Username must not be blank.") @Size(min = 2, max = 32, message = "Username must be between 2 and 32 characters long.") String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NotBlank(message = "Username must not be blank.") @Size(min = 2, max = 32, message = "Username must be between 2 and 32 characters long.") String username) {
+        this.username = username;
+    }
+
+    public @NotBlank(message = "Password must not be blank.") @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long.") String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank(message = "Password must not be blank.") @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long.") String password) {
+        this.password = password;
+    }
+
+    public @NotBlank(message = "Password confirmation must not be blank.") @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long.") String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(@NotBlank(message = "Password confirmation must not be blank.") @Size(min = 8, max = 30, message = "Password must be between 8 and 30 characters long.") String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public @NotBlank(message = "Email must not be blank.") @Email(message = "Invalid email format.") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotBlank(message = "Email must not be blank.") @Email(message = "Invalid email format.") String email) {
+        this.email = email;
+    }
+
+    public @NotNull @PastOrPresent(message = "Invalid date.") LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(@NotNull @PastOrPresent(message = "Invalid date.") LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
-    }
-
-    public @NotBlank @Size(min = 2) String getUsername() {
-        return username;
-    }
-
-    public void setUsername(@NotBlank @Size(min = 2) String username) {
-        this.username = username;
-    }
-
-    public @NotBlank @Size(min = 8) String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NotBlank @Size(min = 8) String password) {
-        this.password = password;
-    }
-
-    public @NotBlank @Size(min = 8) String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(@NotBlank @Size(min = 8) String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public @Email String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@Email String email) {
-        this.email = email;
-    }
-
-    public @PastOrPresent LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(@PastOrPresent LocalDate birthday) {
-        this.birthday = birthday;
     }
 }
