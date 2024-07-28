@@ -53,3 +53,6 @@ input {
     background-color: #fbff69;
 }
 
+#buttons *:hover {
+    cursor: pointer;
+}
