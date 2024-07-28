@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(Long id, UpdateUserDTO updateUserDTO) {
-        return restClient.put().uri("/user/{id}", id).body(updateUserDTO).retrieve().body(UserDTO.class);
+        return restClient.patch().uri("/user/{id}", id).body(updateUserDTO).retrieve().body(UserDTO.class);
     }
 
     @Override

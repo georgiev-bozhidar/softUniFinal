@@ -1,15 +1,19 @@
 package org.georgievbozhidar.softunifinal2.controller;
 
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateLocationDTO;
-import org.georgievbozhidar.softunifinal2.entity.model.Location;
+import jakarta.validation.Valid;
+import org.georgievbozhidar.softunifinal2.entity.dto.DrinkDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.LocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateLocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateDrinkDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateLocationDTO;
 import org.georgievbozhidar.softunifinal2.service.LocationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping("/location")
 public class LocationController {
     private final LocationService locationService;
@@ -24,14 +28,37 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Location> getLocation(@PathVariable Long id){
-        Location location = locationService.getById(id);
-        return new ResponseEntity<>(location, HttpStatus.OK);
+    public ModelAndView getLocation(@PathVariable Long id){
+        ModelAndView mnv = new ModelAndView("location");
+
+        mnv.addObject("locationData", locationService.getById(id));
+
+        return mnv;
     }
 
     @PostMapping
-    public ResponseEntity<Location> createLocation(@RequestBody CreateLocationDTO createLocationDTO){
-        Location location = locationService.createLocation(createLocationDTO);
-        return new ResponseEntity<>(location, HttpStatus.OK);
+    public ModelAndView createLocation(@RequestBody CreateLocationDTO createLocationDTO){
+        ModelAndView mnv = new ModelAndView("location");
+
+        LocationDTO locationDTO = locationService.createLocation(createLocationDTO);
+        mnv.addObject("locationData", locationDTO);
+
+        return mnv;
+    }
+
+    @PatchMapping("/{id}")
+    public ModelAndView updateLocation(@PathVariable Long id, @RequestBody @Valid UpdateLocationDTO updateLocationDTO) {
+        ModelAndView mnv = new ModelAndView("location");
+
+        LocationDTO locationDTO = locationService.updateLocation(id, updateLocationDTO);
+        mnv.addObject("locationData", locationDTO);
+
+        return mnv;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteLocation(@PathVariable Long id){
+        locationService.deleteLocation(id);
+        return "redirect:/home";
     }
 }

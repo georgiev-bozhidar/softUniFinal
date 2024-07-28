@@ -2,10 +2,13 @@ package org.georgievbozhidar.softunifinal2.controller;
 
 import jakarta.validation.Valid;
 import org.georgievbozhidar.softunifinal2.entity.dto.ChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.ChainOwnerDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateChainDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateDrinkDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateFoodDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateLocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateDrinkDTO;
 import org.georgievbozhidar.softunifinal2.service.ChainService;
 import org.georgievbozhidar.softunifinal2.service.UserService;
 import org.springframework.security.core.Authentication;
@@ -59,17 +62,22 @@ public class ChainController {
         return mnv;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Set<Chain>> getAllChains() {
-        Set<Chain> chains = chainService.getAllChains();
-        return new ResponseEntity<>(chains, HttpStatus.OK);
+    @GetMapping("/chain/all")
+    public String viewAllChains() {
+        Set<ChainDTO> chainDTOs = chainService.getAllChains();
+        return null; //TODO
     }
 
     @PostMapping
     public String doCreateChain(@RequestBody @Valid CreateChainDTO createChainDTO, Authentication authentication){
-//        createChainDTO.setOwner(); TODO
-        ChainDTO chainDTO = chainService.createChain(createChainDTO);
+        ChainDTO chainDTO = chainService.createChain(createChainDTO, authentication.getName());
         return String.format("redirect:/chain/%s", chainDTO.getId());
+    }
+
+    @PatchMapping
+    public String updateChain(@PathVariable Long id, @RequestBody @Valid UpdateChainDTO updateChainDTO) {
+        chainService.updateChain(id, updateChainDTO);
+        return "redirect:/chain/" + id;
     }
 
     @DeleteMapping("/{id}")

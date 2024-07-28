@@ -1,21 +1,14 @@
 package org.georgievbozhidar.softunifinal2.controller;
 
 import jakarta.validation.Valid;
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateDrinkDTO;
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateFoodDTO;
-import org.georgievbozhidar.softunifinal2.entity.model.Drink;
-import org.georgievbozhidar.softunifinal2.entity.model.Food;
-import org.georgievbozhidar.softunifinal2.service.DrinkService;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateFoodDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateFoodDTO;
 import org.georgievbozhidar.softunifinal2.service.FoodService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
+@RequestMapping("/location/{locationId}/food")
 public class FoodController {
     private final FoodService foodService;
 
@@ -23,20 +16,21 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    @GetMapping("/food/{id}")
-    public ResponseEntity<Food> getFood(@PathVariable Long id) {
-        Food food = foodService.getFoodById(id);
-        if (food == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(food, HttpStatus.OK);
+    @PostMapping
+    public String createFood(@PathVariable("locationId") Long locationId, @Valid CreateFoodDTO createFoodDTO){
+        foodService.createFood(createFoodDTO);
+        return "redirect:/location/" + locationId;
     }
 
-    @PostMapping("/food")
-    public ResponseEntity<Food> createFood(@Valid CreateFoodDTO createFoodDTO){
-        Food food = foodService.createFood(createFoodDTO);
-        return new ResponseEntity<>(food, HttpStatus.OK);
+    @PatchMapping("/{id}")
+    public String updateFood(@PathVariable("locationId") Long locationId, @PathVariable Long id, @RequestBody @Valid UpdateFoodDTO updateFoodDTO) {
+        return "redirect:/location/" + locationId;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteFood(@PathVariable("locationId") Long locationId, @PathVariable Long id){
+        foodService.deleteById(id);
+        return "redirect:/location/" + locationId;
     }
 
 }

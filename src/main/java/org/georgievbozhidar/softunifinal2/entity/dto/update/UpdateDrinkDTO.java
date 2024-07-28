@@ -1,13 +1,10 @@
-package org.georgievbozhidar.softunifinal2.entity.model;
+package org.georgievbozhidar.softunifinal2.entity.dto.update;
 
-import jakarta.persistence.*;
 import org.georgievbozhidar.softunifinal2.entity.enums.DrinkType;
 
-@Entity
-@Table(name = "drink_types")
-public class DrinkTypeEntity extends BaseEntity {
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+public class UpdateDrinkDTO {
+    private String name;
+
     private DrinkType drinkType;
 
     public DrinkType getDrinkType() {
@@ -16,5 +13,13 @@ public class DrinkTypeEntity extends BaseEntity {
 
     public void setDrinkType(DrinkType drinkType) {
         this.drinkType = drinkType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

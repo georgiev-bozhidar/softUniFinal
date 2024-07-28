@@ -56,7 +56,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDTO updateLocation(Long id, UpdateLocationDTO updateLocationDTO) {
-        return restClient.put().uri("/food/{id}", id).body(updateLocationDTO).retrieve().body(LocationDTO.class);
+        return restClient.patch().uri("/food/{id}", id).body(updateLocationDTO).retrieve().body(LocationDTO.class);
     }
 
     @Override

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.UserLoginDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.UserRegisterDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateUserDTO;
 import org.georgievbozhidar.softunifinal2.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -44,5 +45,12 @@ public class UserController {
 
         return "redirect:/login";
     }
+
+    @PatchMapping("/user/{id}")
+    public String updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserDTO updateUserDTO){
+        userService.updateUser(id, updateUserDTO);
+        return "redirect:/user/" + id;
+    }
+
 }
 

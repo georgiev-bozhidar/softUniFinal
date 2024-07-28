@@ -58,6 +58,7 @@ public class DrinkServiceImpl implements DrinkService {
 
     @Override
     public DrinkDTO updateDrink(Long id, UpdateDrinkDTO updateDrinkDTO) {
-        return restClient.put().uri("/drink/{id}", id).body(updateDrinkDTO).retrieve().body(DrinkDTO.class);
+        return restClient.patch().uri("/drink/{id}", id).body(updateDrinkDTO).retrieve().body(DrinkDTO.class);
+
     }
 }

@@ -3,6 +3,7 @@ package org.georgievbozhidar.softunifinal2.service.impl;
 import org.georgievbozhidar.softunifinal2.entity.dto.ChainDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateChainDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateChainDTO;
 import org.georgievbozhidar.softunifinal2.entity.model.Chain;
 import org.georgievbozhidar.softunifinal2.entity.model.Location;
 import org.georgievbozhidar.softunifinal2.exception.ChainNotFoundException;
@@ -67,10 +68,16 @@ public class ChainServiceImpl implements ChainService {
     }
 
     @Override
-    public ChainDTO createChain(CreateChainDTO createChainDTO){
+    public ChainDTO createChain(CreateChainDTO createChainDTO, String username){
+        createChainDTO.setOwner(userService.getByUsername(username));
         return restClient.post().uri("/chain")
                 .body(createChainDTO)
                 .retrieve().body(ChainDTO.class);
+    }
+
+    @Override
+    public ChainDTO updateChain(Long id, UpdateChainDTO updateChainDTO) {
+        return restClient.patch().uri("/chain/{id}", id).body(updateChainDTO).retrieve().body(ChainDTO.class);
     }
 
     @Override
@@ -91,5 +98,6 @@ public class ChainServiceImpl implements ChainService {
 //        chainRepository.save(chain1);
 //        return modelMapper.map(chain1, ChainDTO.class);
         // TODO
+        return null;
     }
 }

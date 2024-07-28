@@ -62,6 +62,6 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public FoodDTO updateFood(Long id, UpdateFoodDTO updateFoodDTO) {
-        return restClient.put().uri("/food/{id}", id).body(updateFoodDTO).retrieve().body(FoodDTO.class);
+        return restClient.patch().uri("/food/{id}", id).body(updateFoodDTO).retrieve().body(FoodDTO.class);
     }
 }
