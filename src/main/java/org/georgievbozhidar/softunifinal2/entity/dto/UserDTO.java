@@ -2,11 +2,8 @@ package org.georgievbozhidar.softunifinal2.entity.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import org.georgievbozhidar.softunifinal2.entity.model.Chain;
-import org.georgievbozhidar.softunifinal2.entity.model.Role;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Set;
 
 public class UserDTO {
@@ -22,11 +19,17 @@ public class UserDTO {
     @PastOrPresent
     private LocalDate birthday;
 
-    private Set<Chain> ownedChains;
+    private Set<ChainDTO> ownedChains;
 
-    private Set<Chain> favouriteChains;
+    private Set<ChainDTO> favouriteChains;
 
-    private Collection<Role> roles;
+    public @NotBlank Long getId() {
+        return id;
+    }
+
+    public void setId(@NotBlank Long id) {
+        this.id = id;
+    }
 
     public @NotBlank String getUsername() {
         return username;
@@ -44,30 +47,6 @@ public class UserDTO {
         this.email = email;
     }
 
-    public Set<Chain> getOwnedChains() {
-        return ownedChains;
-    }
-
-    public void setOwnedChains(Set<Chain> ownedChains) {
-        this.ownedChains = ownedChains;
-    }
-
-    public Set<Chain> getFavouriteChains() {
-        return favouriteChains;
-    }
-
-    public void setFavouriteChains(Set<Chain> favouriteChains) {
-        this.favouriteChains = favouriteChains;
-    }
-
-    public @NotBlank Long getId() {
-        return id;
-    }
-
-    public void setId(@NotBlank Long id) {
-        this.id = id;
-    }
-
     public @PastOrPresent LocalDate getBirthday() {
         return birthday;
     }
@@ -76,11 +55,19 @@ public class UserDTO {
         this.birthday = birthday;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Set<ChainDTO> getOwnedChains() {
+        return ownedChains;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setOwnedChains(Set<ChainDTO> ownedChains) {
+        this.ownedChains = ownedChains;
+    }
+
+    public Set<ChainDTO> getFavouriteChains() {
+        return favouriteChains;
+    }
+
+    public void setFavouriteChains(Set<ChainDTO> favouriteChains) {
+        this.favouriteChains = favouriteChains;
     }
 }

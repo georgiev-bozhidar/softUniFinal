@@ -21,8 +21,7 @@ public class Role extends BaseEntity implements GrantedAuthority {
         this.roles = roles;
     }
 
-    @Override
-    public String getAuthority() {
-        return String.valueOf(id);
+    public String getAuthority(){
+        return String.valueOf(this.getId());
     }
 }

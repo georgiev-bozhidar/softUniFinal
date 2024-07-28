@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO createUser(String username, String password, String email, LocalDate birthday, Collection<Role> roles) {
+    public void createUser(String username, String password, String email, LocalDate birthday, Collection<Role> roles) {
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO(username, password, password, email, birthday, roles);
-        return restClient.post().uri("/user").body(userRegisterDTO).retrieve().body(UserDTO.class);
+        restClient.post().uri("/user").body(userRegisterDTO);
     }
 
     @Override

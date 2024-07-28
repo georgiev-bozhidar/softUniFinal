@@ -17,7 +17,8 @@ public interface UserService {
     public UserDTO getById(Long id);
 
     public UserDTO createUser(UserRegisterDTO userRegisterDTO);
-    public UserDTO createUser(String username, String password, String email, LocalDate birthday, Collection<Role> roles);
+//    public UserDTO createUser(String username, String password, String email, LocalDate birthday, Collection<Role> roles);
+    public void createUser(String username, String password, String email, LocalDate birthday, Collection<Role> roles);
 
     public void loginUser(UserLoginDTO userLoginDTO);
 
