@@ -1,41 +1,36 @@
 package org.georgievbozhidar.softunifinal2.controller;
 
-import jakarta.validation.Valid;
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateChainDTO;
-import org.georgievbozhidar.softunifinal2.entity.dto.CreateLocationDTO;
-import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
-import org.springframework.http.MediaType;
+import org.georgievbozhidar.softunifinal2.entity.dto.ChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.UserLoginDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateChainDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.CreateLocationDTO;
+import org.georgievbozhidar.softunifinal2.entity.dto.create.UserRegisterDTO;
+import org.georgievbozhidar.softunifinal2.service.ChainService;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.client.RestClient;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Set;
 
 @Controller
 public class ViewController {
+    private final ChainService chainService;
 
-
-    @GetMapping("/")
-    public String viewIndex(){
-        return "index";
+    public ViewController(ChainService chainService) {
+        this.chainService = chainService;
     }
 
-    @GetMapping("/home")
-    public String viewHome(){
-        return "home";
+    @ModelAttribute("loginData")
+    public UserLoginDTO getLoginData() {
+        return new UserLoginDTO();
     }
 
-    @GetMapping("/login")
-    public String viewLogin(){
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String viewRegister(){
-        return "register";
+    @ModelAttribute("registerData")
+    public UserRegisterDTO getRegisterData() {
+        return new UserRegisterDTO();
     }
 
     @ModelAttribute("chainCreationData")
@@ -48,24 +43,39 @@ public class ViewController {
         return new CreateLocationDTO();
     }
 
-    @GetMapping("/chain/create")
-    public String viewCreateChain(@Valid CreateChainDTO createChainDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        return "create-chain";
+    @GetMapping("/")
+    public String viewIndex(Authentication authentication){
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/home";
+        }
+
+        return "index";
     }
 
-    @GetMapping("/location/create")
-    public String viewCreateLocation(@Valid CreateLocationDTO createLocationDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        return "create-location";
+    @GetMapping("/home")
+    public String viewHome(Authentication authentication){
+        if (authentication != null && !authentication.isAuthenticated() && authentication instanceof AnonymousAuthenticationToken) {
+            return "redirect:/";
+        }
+
+        return "home";
+    }
+    @GetMapping("/login")
+    public String viewLogin(){
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String viewRegister(){
+        return "register";
     }
 
     @GetMapping("/search")
-    public String viewSearch(){
-        return "search";
-    }
+    public String viewSearch(Model model){
+        Set<ChainDTO> chainDTOs = chainService.getAllChains();
+        model.addAttribute("chainDTOs", chainDTOs);
 
-    @GetMapping("/error")
-    public String viewError(){
-        return "error";
+        return "search";
     }
 
     @GetMapping("/cart")
@@ -73,42 +83,23 @@ public class ViewController {
         return "cart";
     }
 
-    @GetMapping("/account/order-history")
-    public String viewOrderHistory(){
-        return "order-history";
+    @GetMapping("/chains/create")
+    public String viewChainCreate(){
+        return "create-chain";
     }
 
-    @GetMapping("/user/{id}/view")
-    public ModelAndView viewUser(@PathVariable Long id, RestClient restClient){
-        ModelAndView modelAndView = new ModelAndView("user-profile");
-        modelAndView.addObject("user", restClient.get()
-                .uri("http://localhost:8080/user/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UserDTO.class));
-
-        System.out.println(restClient.get().uri("/user/{id}", id).retrieve().body(String.class));
-        return modelAndView;
+    @GetMapping("/locations/create")
+    public String viewLocationCreate(){
+        return "create-location";
     }
 
-    @GetMapping("/account/settings")
-    public String viewUserSettings(){
-        return "user-settings";
-    }
+//    @GetMapping("/account/order-history")
+//    public String viewOrderHistory(){
+//        return "order-history";
+//    }
 
-    @GetMapping("/chain/{id}/view")
-    public ModelAndView viewChain(@PathVariable Long id, RestClient restClient){
-        ModelAndView modelAndView = new ModelAndView("chain");
-        modelAndView.addObject("chain", restClient.get().uri("http://localhost:8080/chain/{id}", id));
-
-        return modelAndView;
-    }
-
-    @GetMapping("/location/{id}/view")
-    public ModelAndView viewLocation(@PathVariable Long id, RestClient restClient){
-        ModelAndView modelAndView = new ModelAndView("location");
-        modelAndView.addObject("location", restClient.get().uri("http://localhost:8080/location/{id}", id));
-
-        return modelAndView;
-    }
+//    @GetMapping("/account/settings")
+//    public String viewUserSettings(){
+//        return "user-settings";
+//    }
 }

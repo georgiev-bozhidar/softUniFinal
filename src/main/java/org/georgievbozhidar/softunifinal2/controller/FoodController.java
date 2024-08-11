@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/location/{locationId}/food")
+@RequestMapping("/locations/{locationId}/food")
 public class FoodController {
     private final FoodService foodService;
 
@@ -19,18 +19,18 @@ public class FoodController {
     @PostMapping
     public String createFood(@PathVariable("locationId") Long locationId, @Valid CreateFoodDTO createFoodDTO){
         foodService.createFood(createFoodDTO);
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 
     @PatchMapping("/{id}")
     public String updateFood(@PathVariable("locationId") Long locationId, @PathVariable Long id, @RequestBody @Valid UpdateFoodDTO updateFoodDTO) {
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 
     @DeleteMapping("/{id}")
     public String deleteFood(@PathVariable("locationId") Long locationId, @PathVariable Long id){
         foodService.deleteById(id);
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 
 }

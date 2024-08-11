@@ -12,15 +12,17 @@
         <header>
             <a th:href="@{/}" id="name">DeliverE</a>
             <ul class="nav" id="nav">
-                <li><a th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>
-                <li><a th:href="@{/browse}" th:text="#{nav_bar_search}">Search</a></li>
+<!--                <li><a th:href="@{/home}" th:text="#{nav_bar_home}">Home</a></li>-->
+                <li><a th:href="@{/search}" th:text="#{nav_bar_search}">Search</a></li>
             </ul>
             <ul class="nav" id="nav-not-logged" sec:authorize="!isAuthenticated()">
                 <li><a th:href="@{/login}" th:text="#{login}">Login</a></li>
                 <li><a th:href="@{/register}" th:text="#{register}">Register</a></li>
             </ul>
             <ul class="nav" id="nav-logged" sec:authorize="isAuthenticated()">
-                <li><a th:href="@{/user/{id}}" th:text="#{account}">Account</a></li>
+                <li><a
+                        th:href="@{/users/{id}(id=${#authentication.getPrincipal().getUsername()})}"
+                        th:text="#{account}">Account</a></li>
                 <li>
                     <form id="locale-form" th:action="@{/logout}" th:method="post"><button type="submit" th:text="#{logout}">Logout</button></form></li>
             </ul>

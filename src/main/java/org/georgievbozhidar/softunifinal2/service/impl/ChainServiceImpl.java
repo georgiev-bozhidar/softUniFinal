@@ -11,6 +11,7 @@ import org.georgievbozhidar.softunifinal2.repository.ChainRepository;
 import org.georgievbozhidar.softunifinal2.service.ChainService;
 import org.georgievbozhidar.softunifinal2.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -87,17 +88,6 @@ public class ChainServiceImpl implements ChainService {
 
     @Override
     public Set<ChainDTO> getAllChains() {
-//        Set<ChainDTO> chainDTOs = restClient.get().uri("/chain/all").retrieve().body(); //TODO
-        return null;
-    }
-
-    @Override
-    public ChainDTO addLocation(Location location, Chain chain) {
-//        Chain chain1 = this.findByName(chain.getName());
-//        chain1.addLocation(location);
-//        chainRepository.save(chain1);
-//        return modelMapper.map(chain1, ChainDTO.class);
-        // TODO
-        return null;
+        return restClient.get().uri("/chain/all").retrieve().body(new ParameterizedTypeReference<Set<ChainDTO>>() { });
     }
 }

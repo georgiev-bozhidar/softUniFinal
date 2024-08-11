@@ -11,6 +11,11 @@ body {
     background-color: lightgreen;
     margin: 0 auto;
     max-width: min(80ch, 90vw);
+    min-height: 95vh;
+}
+
+main {
+    min-height: 85vh;
 }
 
 a {

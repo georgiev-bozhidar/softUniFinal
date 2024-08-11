@@ -29,7 +29,6 @@ public class Initialize implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         initRoles();
-        initUsers();
     }
 
     public void initRoles(){
@@ -44,19 +43,5 @@ public class Initialize implements CommandLineRunner {
             role.setRoles(roles);
             roleRepository.save(role);
         }
-    }
-
-    public void initUsers(){
-        if (userRepository.count() > 0){
-            return;
-        }
-
-        userService.createUser(
-                "admin",
-                passwordEncoder.encode("admin"),
-                "admin@admin",
-                LocalDate.of(2001, 1, 1),
-                List.of(roleRepository.findByRoles(Roles.ADMIN), roleRepository.findByRoles(Roles.USER))
-        );
     }
 }

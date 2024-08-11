@@ -1,0 +1,13 @@
+@import url("util/style.css");
+
+#create-buttons {
+    display:flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+#create-buttons a {
+    background-color: #eee;
+    border: solid #eee 1em;
+    border-radius: 1000em;
+}

@@ -2,15 +2,12 @@ package org.georgievbozhidar.softunifinal2.controller;
 
 import jakarta.validation.Valid;
 import org.georgievbozhidar.softunifinal2.entity.dto.UserDTO;
-import org.georgievbozhidar.softunifinal2.entity.dto.UserLoginDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.create.UserRegisterDTO;
 import org.georgievbozhidar.softunifinal2.entity.dto.update.UpdateUserDTO;
 import org.georgievbozhidar.softunifinal2.service.UserService;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,11 +19,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
-    public ModelAndView viewUser(@PathVariable Long id){
+    @GetMapping("/users/{id:\\d+}")
+    public ModelAndView viewUserById(@PathVariable Long id){
         ModelAndView mnv = new ModelAndView("user-profile");
 
         UserDTO userDTO = userService.getById(id);
+        mnv.addObject("userData", userDTO);
+
+        return mnv;
+    }
+
+    @GetMapping("/users/{username:.\\D.*}")
+    public ModelAndView viewUserByUsername(@PathVariable("username") String username){
+        ModelAndView mnv = new ModelAndView("user-profile");
+
+        UserDTO userDTO = userService.getByUsername(username);
         mnv.addObject("userData", userDTO);
 
         return mnv;
@@ -46,10 +53,10 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/users/{id}")
     public String updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserDTO updateUserDTO){
         userService.updateUser(id, updateUserDTO);
-        return "redirect:/user/" + id;
+        return "redirect:/users/" + id;
     }
 
 }

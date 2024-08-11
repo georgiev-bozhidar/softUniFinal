@@ -4,9 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
-import java.util.Set;
 
-public class UserDTO {
+public class UserInnerDTO {
     @NotBlank
     private Long id;
 
@@ -19,9 +18,13 @@ public class UserDTO {
     @PastOrPresent
     private LocalDate birthday;
 
-    private Set<ChainWithLocationsDTO> ownedChains;
+    public @NotBlank Long getId() {
+        return id;
+    }
 
-    private Set<ChainWithLocationsDTO> favouriteChains;
+    public void setId(@NotBlank Long id) {
+        this.id = id;
+    }
 
     public @NotBlank String getUsername() {
         return username;
@@ -37,30 +40,6 @@ public class UserDTO {
 
     public void setEmail(@NotBlank String email) {
         this.email = email;
-    }
-
-    public Set<ChainWithLocationsDTO> getOwnedChains() {
-        return ownedChains;
-    }
-
-    public void setOwnedChains(Set<ChainWithLocationsDTO> ownedChains) {
-        this.ownedChains = ownedChains;
-    }
-
-    public Set<ChainWithLocationsDTO> getFavouriteChains() {
-        return favouriteChains;
-    }
-
-    public void setFavouriteChains(Set<ChainWithLocationsDTO> favouriteChains) {
-        this.favouriteChains = favouriteChains;
-    }
-
-    public @NotBlank Long getId() {
-        return id;
-    }
-
-    public void setId(@NotBlank Long id) {
-        this.id = id;
     }
 
     public @PastOrPresent LocalDate getBirthday() {

@@ -10,18 +10,20 @@
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
-<form id="creation-form" th:method="POST" th:action="@{/chain}" th:object="${chainCreationData}">
-    <div>
-        <label for="name" th:text="#{name}">Name</label>
-        <input type="text" id="name" name="name" th:field="*{name}"/>
-    </div>
+<main>
+    <form id="creation-form" th:method="POST" th:action="@{/chains}" th:object="${chainCreationData}">
+        <div>
+            <label for="chain-name" th:text="#{name}">Name</label>
+            <input type="text" id="chain-name" name="chain-name" th:field="*{name}"/>
+        </div>
 
-    <div id="buttons">
-        <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
+        <div id="buttons">
+            <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
 
-        <button type="submit" th:text="#{create_chain}">Create Chain</button>
-    </div>
-</form>
+            <button type="submit" th:text="#{create_chain}">Create Chain</button>
+        </div>
+    </form>
+</main>
 
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>

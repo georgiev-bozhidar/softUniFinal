@@ -10,37 +10,40 @@
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
-<form id="creation_form" th:method="POST" th:action="@{/chain}" th:object="${locationCreationData}">
-    <div>
-        <label for="address" th:text="#{address}">Address</label>
-        <input type="text" id="address" name="address" th:field="*{address}"/>
-    </div>
+<main>
+<!--    <form id="creation_form" th:method="POST" th:object="${locationCreationData}" th:action="@{/chains/{id}(id=locationCreationData.getOwnedBy().getId())/locations}">-->
+    <form id="creation_form" th:method="POST" th:action="@{/locations}" th:object="${locationCreationData}">
+        <div>
+            <label for="address" th:text="#{address}">Address</label>
+            <input type="text" id="address" name="address" th:field="*{address}"/>
+        </div>
 
-<!--    <div>-->
-<!--        <label for="parent_chain" th:text="#{parent_chain}">Parent Chain</label>-->
-<!--        <select id="parent_chain" name="parent_chain" th:field="*{ownedBy}">-->
-<!--            <option th:each="${#}"></option>-->
-<!--        </select>-->
-<!--    </div>-->
+        <div>
+            <label for="parent_chain" th:text="#{parent_chain}">Parent Chain</label>
+            <select id="parent_chain" name="parent_chain" th:field="*{ownedBy}">
+                <option th:each="*{ownedBy.getId()}"></option>
+            </select>
+        </div>
 
-    <div>
-        <label for="location_type" th:text="#{location_type}">Location Type</label>
-        <select id="location_type" name="location_type" th:field="*{locationType}">
-            <option value=""></option>
-            <option value="FAST_FOOD">Fast Food</option>
-            <option value="RESTAURANT">Restaurant</option>
-            <option value="CAFE">Café</option>
-            <option value="NON_STOP">Non-Stop</option>
-            <option value="SUPERMARKET">Supermarket</option>
-        </select>
-    </div>
+        <div>
+            <label for="location_type" th:text="#{location_type}">Location Type</label>
+            <select id="location_type" name="location_type" th:field="*{locationType}">
+                <option value=""></option>
+                <option value="FAST_FOOD">Fast Food</option>
+                <option value="RESTAURANT">Restaurant</option>
+                <option value="CAFE">Café</option>
+                <option value="NON_STOP">Non-Stop</option>
+                <option value="SUPERMARKET">Supermarket</option>
+            </select>
+        </div>
 
-    <div id="buttons">
-        <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
+        <div id="buttons">
+            <a th:href="@{/home}" th:text="#{nav_back}">Back</a>
 
-        <button type="submit" th:text="#{create_location}">Create Location</button>
-    </div>
-</form>
+            <button type="submit" th:text="#{create_location}">Create Location</button>
+        </div>
+    </form>
+</main>
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

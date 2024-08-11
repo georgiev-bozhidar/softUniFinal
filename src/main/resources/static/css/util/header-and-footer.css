@@ -2,6 +2,7 @@ header {
   padding-top:1em;
   display:flex;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 header ul {
@@ -22,6 +23,7 @@ ul button:hover {
 }
 
 footer {
+  margin-top: 1em;
 }
 
 header,
@@ -38,4 +40,8 @@ footer {
 #locale-form {
   display:flex;
   flex-direction:column;
+}
+
+.nav {
+  justify-content: space-around;
 }

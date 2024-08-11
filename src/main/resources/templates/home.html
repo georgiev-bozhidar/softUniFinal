@@ -6,12 +6,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DeliverE</title>
-    <link rel="stylesheet" href="/css/util/style.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <div th:replace="~{fragments/general.html :: header}"></div>
-    <a th:href="@{/chain/create}">Create chain</a>
-    <a th:href="@{/location/create}">Create location</a>
+    <main>
+        <div id="create-buttons">
+            <a th:href="@{/chains/create}">Create chain</a>
+            <a th:href="@{/locations/create}">Create location</a>
+        </div>
+    </main>
     <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

@@ -23,6 +23,4 @@ public interface ChainService {
     public ChainDTO updateChain(Long id, UpdateChainDTO updateChainDTO);
 
     public void deleteChain(Long id);
-
-    public ChainDTO addLocation(Location location, Chain chain);
 }

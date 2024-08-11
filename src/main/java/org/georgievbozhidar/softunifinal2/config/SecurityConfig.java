@@ -1,6 +1,5 @@
 package org.georgievbozhidar.softunifinal2.config;
 
-import org.georgievbozhidar.softunifinal2.repository.RoleRepository;
 import org.georgievbozhidar.softunifinal2.service.impl.CustomUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -54,7 +53,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(RoleRepository roleRepository){
+    public UserDetailsService userDetailsService(){
         return customUserDetailsService;
     }
 

@@ -8,15 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
     @GetMapping("/error")
-    public String error() {
-        return "error";
-    }
+    @ExceptionHandler(RuntimeException.class)
+    public ModelAndView handleException(RuntimeException e) {
+        ModelAndView modelAndView = new ModelAndView("error");
 
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(Exception e){
-        ModelAndView mnv = new ModelAndView("error");
-        mnv.addObject("exception", e.getMessage());
+        modelAndView.addObject("exception", e.getMessage());
 
-        return mnv;
+        return modelAndView;
     }
 }

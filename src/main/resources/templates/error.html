@@ -10,12 +10,14 @@
 </head>
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
-<div>
-    <h3 th:text="#{error}">Error</h3>
-    <p>An error has occured.</p>
-    <p>More information:</p>
-    <p th:text="${exception}"></p>
-</div>
+<main>
+    <div>
+        <h3 th:text="#{error}">Error</h3>
+        <p>An error has occured.</p>
+        <p>More information:</p>
+        <p th:text="${exception}"></p>
+    </div>
+</main>
 <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

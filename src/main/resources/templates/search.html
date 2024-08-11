@@ -10,7 +10,13 @@
 </head>
 <body>
     <div th:replace="~{fragments/general.html :: header}"></div>
-    <p>search</p>
+    <main>
+        <div th:each="chain: ${chainDTOs}">
+            <p>Name: <a th:href="@{/chains/{id}(id=${chain.getId()})}" th:text="${chain.getName()}"></a></p>
+            <p>Owner: <a th:href="@{/users/{id}(id=${chain.getOwner().getId()})}" th:text="${chain.getOwner().getUsername()}"></a></p>
+            <br/>
+        </div>
+    </main>
     <div th:replace="~{fragments/general.html :: footer}"></div>
 </body>
 </html>

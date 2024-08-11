@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/location/{locationId}/drink")
+@RequestMapping("/locations/{locationId}/drinks")
 public class DrinkController {
     private final DrinkService drinkService;
 
@@ -22,18 +22,18 @@ public class DrinkController {
     @PostMapping
     public String createDrink(@PathVariable("locationId") Long locationId, @Valid CreateDrinkDTO createDrinkDTO){
         drinkService.createDrink(createDrinkDTO);
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 
     @PatchMapping("/{id}")
     public String updateDrink(@PathVariable("locationId") Long locationId, @PathVariable Long id, @RequestBody @Valid UpdateDrinkDTO updateDrinkDTO) {
         drinkService.updateDrink(id, updateDrinkDTO) ;
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 
     @DeleteMapping("/{id}")
     public String deleteDrink(@PathVariable("locationId") Long locationId, @PathVariable Long id){
         drinkService.deleteById(id);
-        return "redirect:/location/" + locationId;
+        return "redirect:/locations/" + locationId;
     }
 }

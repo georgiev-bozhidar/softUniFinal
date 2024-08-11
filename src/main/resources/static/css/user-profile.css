@@ -1,0 +1,12 @@
+@import url("util/style.css");
+
+main {
+    display:flex;
+    flex-direction: column;
+}
+
+.profile {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
